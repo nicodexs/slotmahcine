@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fortune Gems</title>
+    <link rel="stylesheet" href="smachine.css">
+    <style>
+    
+    </style>
+</head>
+<body>
+    <div class="slot-machine">
+        <h1>FORTUNE GEMS</h1>
+        <div class="reels">
+            <div class="reel" id="reel1"><img src="blue.png" alt=""></div>
+            <div class="reel" id="reel2"><img src="red.png" alt=""></div>
+            <div class="reel" id="reel3"><img src="green.png" alt=""></div>
+            <div class="reel" id="reel4"><img src="blue.png" alt=""></div>
+            <div class="reel" id="reel5"><img src="red.png" alt=""></div>
+            <div class="reel" id="reel6"><img src="green.png" alt=""></div>
+            <div class="reel" id="reel7"><img src="blue.png" alt=""></div>
+            <div class="reel" id="reel8"><img src="red.png" alt=""></div>
+            <div class="reel" id="reel9"><img src="green.png" alt=""></div>
+        </div>
+        <hr>
+        <div id="message"></div>
+        <div class="controls">
+            <span id="multipliers"> RED = 20x Blue=15x Green=10 ACE=5x KING=3x QUEEN=2x JACK =1x </span>
+            <div id="credits">Credits: </div>
+            <button class="btn"  onclick="spinReels()">Bet</button>
+            <select id="bet-selection" class="btn" onchange="updateBetAmount()">
+                <option value="10">$10</option>
+                <option value="20">$20</option>
+                <option value="50">$50</option>
+                <option value="100">$100</option>
+            </select>
+            <div class="instructions">
+                <span>Winning Conditions: </span> 
+            <span>3 Identical Icons in Top Row, Middle Row , Diagonal from 1, and Left Column</span>
+              
+        </div>
+        
+    </div>
+<hr>
+    <script>
+        alert('Free 1000 credits to test.')
+        let credits = 1000;
+        let betAmount = 10;
+        const creditss =document.getElementById('credits');
+        creditss.textContent += `$${credits}`;
+        const symbols = ["red.png", "blue.png", "green.png", "ace.png", "king.png", "jack.png", "queen.png"];
+        const multipliers = {
+            "red.png": 20,
+            "blue.png": 15,
+            "green.png": 10,
+            "ace.png": 5,
+            "king.png": 3,
+            "queen.png": 2,
+            "jack.png": 1
+        };
+
+        function getRandomSymbol() {
+            return symbols[Math.floor(Math.random() * symbols.length)];
+        }
+
+        function updateCredits(amount) {
+            credits += amount;
+            document.getElementById('credits').innerText = `Credits: $${credits}`;
+        }
+
+        function updateBetAmount() {
+            const betSelection = document.getElementById('bet-selection');
+            betAmount = parseInt(betSelection.value);
+        }
+
+        function spinReels() {
+            if (credits < betAmount) {
+                document.getElementById('message').innerText = 'Not enough credits!';
+                return;
+            }
+
+            updateCredits(-betAmount); // Deduct bet amount per spin
+
+            for (let i = 1; i <= 9; i++) {
+                const reel = document.getElementById('reel' + i).querySelector('img');
+                reel.src = getRandomSymbol();
+                reel.parentElement.style.borderColor = ''; // Reset border color
+            }
+            checkWin();
+        }
+    
+        function checkWin() {
+            const reel1 = document.getElementById('reel1').querySelector('img').src;
+            const reel2 = document.getElementById('reel2').querySelector('img').src;
+            const reel3 = document.getElementById('reel3').querySelector('img').src;
+            const reel4 = document.getElementById('reel4').querySelector('img').src;
+            const reel5 = document.getElementById('reel5').querySelector('img').src;
+            const reel6 = document.getElementById('reel6').querySelector('img').src;
+            const reel7 = document.getElementById('reel7').querySelector('img').src;
+            const reel8 = document.getElementById('reel8').querySelector('img').src;
+            const reel9 = document.getElementById('reel9').querySelector('img').src;
+
+            const message = document.getElementById("message");
+            message.innerText = '';
+
+            let winCount = 0;
+            let totalWinAmount = 0;
+    function checkLine(symbol1, symbol2, symbol3, reelIds) {
+                if (symbol1 === symbol2 && symbol2 === symbol3) {
+                    winCount++;
+                    reelIds.forEach(id => document.getElementById(id).style.borderColor = 'green');
+                    const symbol = symbol1.split('/').pop();
+                    totalWinAmount += multipliers[symbol] * betAmount;
+                }
+            }
+            
+            checkLine(reel1, reel5, reel9, ['reel1', 'reel5', 'reel9']);
+            checkLine(reel1, reel2, reel3, ['reel1', 'reel2', 'reel3']);
+            checkLine(reel4, reel5, reel6, ['reel4', 'reel5', 'reel6']);
+            checkLine(reel1, reel4, reel7, ['reel1', 'reel4', 'reel7']);
+
+            if (winCount > 0) {
+                message.innerText = `WIN:$${totalWinAmount}!!!`;
+                updateCredits(totalWinAmount); // Add the win amount based on multipliers
+            } else {
+                message.innerText = '';
+            }
+        }
+    </script>
+</body>
+</html>

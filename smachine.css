@@ -1,0 +1,100 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #dcb130;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+.slot-machine {
+    width: 1000px;
+    background-color:#dabd26;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    color: rgb(0, 0, 0);
+    text-align: center;
+}
+.slot-machine h1 {
+    background-color: #f1d93f;
+    color: #505050;
+    margin: 0 0 20px 0;
+}
+.reels {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 0px;
+    margin-bottom: 20px;
+}
+.reel {
+    margin-left: 15px;
+    width: 300px;
+    height: 150px;
+    background-color: #fff;
+    border: 5px solid #eacb2d;
+    border-radius: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 24px;
+    color: #000000;
+}
+img {
+    width: 300px;
+    border-radius: 20px;
+    height: 150px;
+    
+}
+.controls {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+.btn {
+    padding: 10px 12px;
+    background-color: 	#dcb130;
+    height: 80px;
+    width: 120px;
+    border-radius: 20px;
+    color: rgb(33, 34, 8);
+    cursor: pointer;
+    font-size: 40px;
+    border-color: rgb(0, 0, 0);
+}
+#bet-selection {
+    width: 100px;
+    height: 50px;
+    font-size: 18px;
+}
+#credits {
+    text-transform: uppercase;
+    width: 130px;
+    color: #000000;
+    display: flex;
+    align-items: start;
+    left: 10%;
+    transform: translate(-170%,10%);
+}
+#message {
+    margin-left: 15px;
+    padding-left: 15px;
+    height: 30px;
+    text-transform: uppercase;
+    color:#4d4c4b;
+}
+.instructions {
+    transform: translate(100%,-20%);
+    height: 120px;
+    width: 150px;color:#4d4c4b;
+}
+#multipliers {
+    color:#4d4c4b;
+    width: 80px;
+    padding: 0;
+    transform: translate(100%,-20%);
+}
+hr{
+    color: black;
+}
